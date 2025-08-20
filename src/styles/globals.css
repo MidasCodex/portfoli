@@ -12,6 +12,7 @@
   --popover: 0 0% 100%;
   --popover-foreground: 20 5% 10%;
   --primary: 15 90% 65%;
+  --primary-dark: 15 90% 55%;
   --primary-foreground: 0 0% 100%;
   --secondary: 20 30% 96%;
   --secondary-foreground: 20 5% 15%;
@@ -25,6 +26,11 @@
   --input: 20 20% 91%;
   --ring: 15 90% 65%;
   --radius: 0.75rem;
+
+  /* Aliases for legacy CSS usage */
+  --text: hsl(var(--foreground));
+  --text-muted: hsl(var(--muted-foreground));
+  --stroke: hsl(var(--border));
   
   /* Custom properties */
   --header-height: 4rem;
@@ -46,7 +52,17 @@
   --peach-600: #FF8E72;
   --peach-50: #FFFAF5;
   --peach-700: #FF9900;
+  /* Chart variables aligned with Tailwind config */
+  --chart-1: 12 76% 61%;
+  --chart-2: 173 58% 39%;
+  --chart-3: 197 37% 24%;
+  --chart-4: 43 74% 66%;
+  --chart-5: 27 87% 67%;
+
+  /* Hint native UI theme */
+  color-scheme: light;
 }
+
 
 @layer base {
   * {
@@ -111,10 +127,6 @@
   transition: all 0.3s ease;
 }
 
-.dark .site-header {
-  background: rgba(20, 18, 18, 0.85);
-  border-bottom-color: rgba(255, 142, 114, 0.15);
-}
 
 .header-inner {
   @apply flex items-center justify-between h-full px-6;
@@ -373,7 +385,7 @@ body.menu-open {
 .hero-desc {
   font-size: 1.25rem;
   line-height: 1.6;
-  color: var(--muted);
+  color: hsl(var(--muted-foreground));
   margin: 0 0 2.5rem;
   animation: fadeInUp 0.8s 0.4s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
@@ -388,7 +400,7 @@ body.menu-open {
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--muted);
+  color: var(--text-muted);
   margin-bottom: 0.5rem;
 }
 
@@ -488,7 +500,7 @@ body.menu-open {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-dark)) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -675,7 +687,7 @@ body.menu-open {
 .about-text p {
   font-size: 1.125rem;
   line-height: 1.8;
-  color: var(--muted);
+  color: var(--text-muted);
   margin: 0 0 1.5rem;
 }
 
@@ -786,117 +798,22 @@ body.menu-open {
   @apply px-4 py-2;
 }
 
-/* Dark Mode Variables */
-[data-theme="dark"] {
-  --bg: #0a0a0a;
-  --surface: #141414;
-  --text: #f0f0f0;
-  --muted: #9ca3af;
-  --stroke: #2a2a2a;
-  --primary: #ff9a56;
-  --primary-light: #ffb380;
-  --secondary: #b794f4;
-  --accent: #4fd1c5;
-}
 
-/* Theme Toggle */
-.theme-toggle {
-  position: relative;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: transparent;
-  border: 1px solid var(--stroke);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  margin-left: 20px;
-}
 
-.theme-toggle:hover {
-  background: var(--stroke);
-  transform: scale(1.05);
-}
 
-.theme-icon {
-  position: absolute;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
 
-.theme-icon-light {
-  opacity: 1;
-  transform: rotate(0deg);
-}
 
-.theme-icon-dark {
-  opacity: 0;
-  transform: rotate(180deg);
-}
 
-[data-theme="dark"] .theme-icon-light {
-  opacity: 0;
-  transform: rotate(180deg);
-}
 
-[data-theme="dark"] .theme-icon-dark {
-  opacity: 1;
-  transform: rotate(0deg);
-}
 
-/* Dark mode adjustments */
-[data-theme="dark"] body {
-  background: var(--bg);
-  color: var(--text);
-}
 
-[data-theme="dark"] .site-header {
-  background: rgba(10, 10, 10, 0.95);
-  backdrop-filter: blur(10px);
-}
 
-[data-theme="dark"] .hero {
-  background: linear-gradient(135deg, rgba(255,154,0,0.05) 0%, rgba(183,148,244,0.05) 100%);
-}
 
-[data-theme="dark"] .project-card {
-  background: var(--surface);
-  border-color: var(--stroke);
-}
 
-[data-theme="dark"] .project-card:hover {
-  border-color: var(--primary);
-  box-shadow: 0 20px 40px rgba(255, 154, 0, 0.1);
-}
 
-[data-theme="dark"] .project-overlay {
-  background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.7) 50%, transparent 100%);
-}
 
-[data-theme="dark"] .skill-category {
-  background: var(--surface);
-  border-color: var(--stroke);
-}
 
-[data-theme="dark"] .contact-button {
-  background: var(--primary);
-  color: var(--bg);
-}
 
-[data-theme="dark"] .contact-button:hover {
-  background: var(--primary-light);
-}
-
-[data-theme="dark"] .about,
-[data-theme="dark"] .contact {
-  background: var(--surface);
-}
-
-[data-theme="dark"] .footer {
-  background: var(--surface);
-  border-top-color: var(--stroke);
-}
 
 /* Focus Styles & Accessibility */
 *:focus {
@@ -904,7 +821,6 @@ body.menu-open {
   outline-offset: 2px;
 }
 
-.theme-toggle:focus,
 .mobile-menu-btn:focus {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
