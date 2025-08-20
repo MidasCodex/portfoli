@@ -1,11 +1,198 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import HeroCta from '../components/HeroCta.tsx';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const projects = [
+  {
+    title: "E-Commerce Platform",
+    description: "A modern e-commerce solution with real-time inventory management and seamless checkout experience.",
+    link: "#",
+    tags: ["React", "Node.js", "MongoDB", "Stripe"],
+    gradient: "#FF6B6B, #4ECDC4",
+    year: "2024"
+  },
+  {
+    title: "Task Management App",
+    description: "Collaborative task management tool with real-time updates and team analytics dashboard.",
+    link: "#",
+    tags: ["Vue.js", "Firebase", "Tailwind"],
+    gradient: "#667EEA, #764BA2",
+    year: "2024"
+  },
+  {
+    title: "Weather Dashboard",
+    description: "Beautiful weather application with forecasts, maps, and location-based recommendations.",
+    link: "#",
+    tags: ["TypeScript", "Next.js", "API"],
+    gradient: "#F093FB, #F5576C",
+    year: "2023"
+  },
+  {
+    title: "Portfolio Website",
+    description: "Personal portfolio showcasing creative work with smooth animations and modern design.",
+    link: "#",
+    tags: ["Astro", "React", "CSS"],
+    gradient: "#FA709A, #FEE140",
+    year: "2023"
+  }
+];
+
+const skills = [
+  { name: 'Frontend', items: ['React', 'Vue', 'TypeScript', 'Next.js', 'Tailwind'] },
+  { name: 'Backend', items: ['Node.js', 'Python', 'PostgreSQL', 'GraphQL'] },
+  { name: 'Design', items: ['Figma', 'Framer', 'Adobe CC', 'Design Systems'] },
+  { name: 'Tools', items: ['Git', 'Docker', 'AWS', 'CI/CD'] },
+];
+
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Your Name — Portfolio">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-gradient"></div>
+      <div class="hero-pattern"></div>
+    </div>
+    <div class="container">
+      <div class="hero-content reveal">
+        <span class="hero-tag">
+          <span class="tag-icon">✨</span>
+          Open to opportunities
+        </span>
+        <h1 class="hero-title">
+          <span class="title-line">
+            <span class="title-word">Building</span>
+            <span class="title-word text-gradient">delightful</span>
+          </span>
+          <span class="title-line">
+            <span class="title-word">digital</span>
+            <span class="title-word">experiences</span>
+          </span>
+        </h1>
+        <p class="hero-desc">
+          I'm a product-focused engineer who crafts pixel-perfect interfaces
+          <br class="hidden md:block">
+          that seamlessly blend beautiful design with bulletproof code.
+        </p>
+        <HeroCta client:load />
+        
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
+          <span class="scroll-text">Scroll to explore</span>
+          <span class="scroll-arrow">↓</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="work" class="projects-section">
+    <div class="container mx-auto px-4">
+      <div class="section-header fade-in">
+        <h2 class="section-title">Recent Projects</h2>
+        <p class="section-subtitle">A selection of my recent work and personal projects</p>
+      </div>
+      
+      <div class="projects-grid">
+        {projects.map((project, index) => (
+          <article class="project-card group" data-index={index}>
+            <div class="project-image">
+              <div class="project-image-placeholder" style={`background: linear-gradient(135deg, ${project.gradient || 'var(--primary-light), var(--primary)'});`}>
+                <span class="project-number">{String(index + 1).padStart(2, '0')}</span>
+              </div>
+              <div class="project-overlay">
+                <a href={project.link} class="project-link" aria-label={`View ${project.title} project`}>
+                  <span>View Project</span>
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13L13 7M13 7H7M13 7V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-header">
+                <h3 class="project-title">{project.title}</h3>
+                <span class="project-year">{project.year || '2024'}</span>
+              </div>
+              <p class="project-description">{project.description}</p>
+              <div class="project-tags">
+                {project.tags.map((tag) => (
+                  <span class="project-tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-content fade-in">
+          <h2 class="about-title">About Me</h2>
+          <h2 class="section-title">Hello, I'm Alex</h2>
+          <div class="about-text">
+            <p>
+              I'm a frontend engineer with 5+ years of experience building products for startups and enterprises.
+              My sweet spot is creating interfaces that are not just functional, but genuinely enjoyable to use.
+            </p>
+            <p>
+              I believe great products emerge from the intersection of design and engineering. That's why I've
+              invested time in understanding both disciplines—from design systems and user research to performance
+              optimization and accessibility.
+            </p>
+            <p>
+              When I'm not coding, you'll find me exploring new coffee shops, reading about product design,
+              or contributing to open-source projects that make developers' lives easier.
+            </p>
+          </div>
+        </div>
+        
+        <div class="skills-section slide-up">
+          <h3 class="skills-title">Skills & Expertise</h3>
+          <div class="skills-grid">
+            {skills.map(category => (
+              <div class="skill-category">
+                <h4 class="skill-name">{category.name}</h4>
+                <div class="skill-items">
+                  {category.items.map(item => (
+                    <span class="skill-item">{item}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="contact-content fade-in">
+        <h2 class="contact-title">Let's Work Together</h2>
+        <p class="contact-description">
+          I'm currently open to freelance projects and full-time opportunities.
+          <br>Whether you have a question or just want to say hi, feel free to reach out!
+        </p>
+        <div class="contact-links">
+          <a href="mailto:hello@example.com" class="contact-button">
+            <span>Send me an email</span>
+            <span class="button-arrow">→</span>
+          </a>
+          <div class="contact-socials">
+            <a href="#" class="social-link">LinkedIn</a>
+            <span class="social-divider">·</span>
+            <a href="#" class="social-link">GitHub</a>
+            <span class="social-divider">·</span>
+            <a href="#" class="social-link">Twitter</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>
